@@ -1,0 +1,49 @@
+
+syntax = "proto3";
+
+package sec06;
+
+option java_multiple_files = true;
+option java_package = "com.vytran.models.sec06";
+
+message BalanceCheckRequest {
+  int32 account_number = 1;
+}
+
+message AccountBalance {
+  int32 account_number = 1;
+  int32 balance = 2;
+}
+
+message GetAllBankAccountRequest {
+
+}
+
+message GetAllBankAccountResult{
+  repeated AccountBalance account = 1;
+}
+
+message WithdrawRequest{
+  int32 account_number = 1;
+  int32 amount = 2;
+}
+
+message Money{
+  int32 amount = 1;
+}
+
+
+
+
+
+
+
+service BankService {
+  //Unary
+  rpc GetAccountBalance(BalanceCheckRequest) returns (AccountBalance);
+  rpc GetAllAccount(GetAllBankAccountRequest) returns (GetAllBankAccountResult);
+
+  //Server Streaming
+  rpc Withdraw(WithdrawRequest) returns (stream Money);
+}
+
